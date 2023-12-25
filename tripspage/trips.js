@@ -65,6 +65,10 @@ typeSelect.addEventListener('change', () => {
     } else {
         //options
         locationSelect.innerHTML = groupTransfer
+        //filter
+        typeFilteredCards = [...cards].filter(i => i.classList.contains('Group'))
+        cards.forEach(o => o.style.display = 'none')
+        typeFilteredCards.forEach(o => o.style.display = 'flex')
     }
     
 })
@@ -72,9 +76,11 @@ typeSelect.addEventListener('change', () => {
 locationSelect.addEventListener('change', () => {
     //filter
     var selectedItem = locationSelect.options[locationSelect.selectedIndex].text
-    var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0]))
-    cards.forEach(o => o.style.display = 'none')
-    locationFilteredCard.forEach(o => o.style.display = 'flex')
+    if(selectedItem.split(' ')[0] != 'Please' && selectedItem.split(' ')[0] != 'Select'){
+        var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0]))
+        cards.forEach(o => o.style.display = 'none')
+        locationFilteredCard.forEach(o => o.style.display = 'flex')
+    }
 })
 
 tripName.addEventListener('keyup', function(){
