@@ -17,15 +17,29 @@ const db = getFirestore()
 
 const colRef = collection(db, 'Trips') 
 
+let trips = []
+
+var cards;
+var cardBtn;
+
 getDocs(colRef)
     .then((snapshot) => {
-        let trips = []
         snapshot.docs.forEach(doc => {
             trips.push({ ...doc.data(), id: doc.id })
         })
         trips.forEach(trip => {
             toCard(trip)
         })
+        cards = document.querySelectorAll('.card')
+        //to book page
+        cardBtn = document.querySelectorAll('.card-btn')
+        cardBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let tripId = btn.parentElement.parentElement.parentElement.id
+            trips.filter(trip => trip.id == tripId)
+            localStorage['trip'] = JSON.stringify(trips[0])
+        })
+    })
     })
     .catch(err => {
         console.log(err.message)
@@ -44,7 +58,7 @@ const toCard = obj => {
         <div class="card-text d-flex flex-column gap-2">
             <div class="duration">
                 <i class="fa-regular fa-clock orange"></i>
-                <p class="poppins">${obj.duration % 60 != 0 && obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': obj.duration + ' Minute(s)'}</p>
+                <p class="poppins">${obj.duration % 60 != 0 && obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': '0 Hour(s) ' + obj.duration + ' Minute(s)'}</p>
             </div>
             <div class="location">
                 <i class="fa-solid fa-location-dot orange"></i>
@@ -56,7 +70,7 @@ const toCard = obj => {
             </div>
         </div>
         <div class="card-f d-flex justify-content-between align-items-end col-md-12">
-            <a href="#" class="btn btn-primary card-btn">Book</a>
+            <a href="../bookpage/book.html" class="btn btn-primary card-btn">Book</a>
             <div class="price-box d-flex flex-column align-items-end gap-1">
                 <span style='display: ${obj.sale != 0 ? 'block;': 'none;'}' class='no-price'>GEL${obj.price}</span>
                 <span class="price">GEL${obj.sale != 0 ? obj.price * ((100 - obj.sale)/100) : obj.price}</span>
@@ -104,10 +118,6 @@ let groupTransfer = `
 
 //filter
 const tripName = document.getElementById('tourName')
-var cards;
-setTimeout(() => {
-    cards = document.querySelectorAll('.card')
-},1000)
 var typeFilteredCards = []
 
 typeSelect.addEventListener('change', () => {
@@ -130,7 +140,7 @@ typeSelect.addEventListener('change', () => {
         //options
         locationSelect.innerHTML = transferOptions
         //filter
-        typeFilteredCards = [...cards].filter(i => i.classList.contains('Transfers'))
+        typeFilteredCards = [...cards].filter(i => i.classList.contains('Transfer'))
         cards.forEach(o => o.style.display = 'none')
         typeFilteredCards.forEach(o => o.style.display = 'flex')
     } else if(selectedItem == 'Select Tour Type...'){
@@ -163,9 +173,5 @@ tripName.addEventListener('keyup', function(){
     cards.forEach(o => o.style.display = 'none')
     filteredCards.forEach(o => o.style.display = 'flex')
 })
-
-
-
-
 
 
