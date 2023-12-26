@@ -1,6 +1,6 @@
 import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-
+ 
 const firebaseConfig = {
     apiKey: "AIzaSyAV4hu9LixLMqppId6X2vnq_f9ua0cfvJ4",
     authDomain: "guide-in-kutaisi.firebaseapp.com",
