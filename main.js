@@ -90,7 +90,52 @@ window.addEventListener('scroll', function () {
     }
 })
 
-// searchis forma selectebi gasasworebeli.
 // amis mere mercheba admin paneli gasaketebli 
 // snackebi da ase shemdeg gasaketebeli.
 // contactze mailis gagzavna romelic ukve gaketebulad chavtvalot imitoro umartivesad vizam...
+let individualOptions = `
+    <option selected value="">Select Tour Location...</option>
+    <option value="">Martvili Canyon</option>
+    <option value="">Okatse Canyon</option>
+    <option value="">Okatse Waterfall</option>
+    <option value="">Prometheus Cave</option>
+    <option value="">Sataflia</option>
+    <option value="">Tetra Cave</option>
+`
+let transferOptions = `
+    <option selected value="">Select Tour Location...</option>
+    <option value="">Batumi</option>
+    <option value="">Kobuleti</option>
+    <option value="">Ureki</option>
+    <option value="">Kutaisi</option>
+    <option value="">Borjomi</option>
+    <option value="">Bakuriani</option>
+    <option value="">Gudauri</option>
+    <option value="">Mestia</option>
+    <option value="">Tbilisi</option>
+`
+
+let groupTransfer = `
+    <option selected value="">Select Tour Location...</option>
+    <option value="">3 Days In Kutaisi</option>
+    <option value="">5 Days In Georgia</option>
+    <option value="">10 Days In Georgia</option>
+`
+
+
+const typeSelect = document.getElementById('tourType')
+const locationSelect = document.getElementById('tourLocation')
+
+typeSelect.addEventListener('change', () => {
+    let selectedItem = typeSelect.options[typeSelect.selectedIndex].text
+    if(selectedItem == 'Individual Tours'){
+        //options
+        locationSelect.innerHTML = individualOptions
+    } else if(selectedItem == 'Transfers'){
+        //options
+        locationSelect.innerHTML = transferOptions
+    } else {
+        //options
+        locationSelect.innerHTML = groupTransfer
+    }
+})
