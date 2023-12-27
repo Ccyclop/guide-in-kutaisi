@@ -44,3 +44,13 @@ td {
 span {
     cursor: pointer;
 }
+
+.offcanvas {
+    width: 40vw!important;
+}
+
+.body-e {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

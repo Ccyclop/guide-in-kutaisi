@@ -90,9 +90,9 @@ window.addEventListener('scroll', function () {
     }
 })
 
-// amis mere mercheba admin paneli gasaketebli 
+// amis mere mercheba admin paneli gasaketebli
 // snackebi da ase shemdeg gasaketebeli.
-// contactze mailis gagzavna romelic ukve gaketebulad chavtvalot imitoro umartivesad vizam...
+
 let individualOptions = `
     <option selected value="">Select Tour Location...</option>
     <option value="">Martvili Canyon</option>

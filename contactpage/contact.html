@@ -51,7 +51,8 @@
             <p class="subtitle">Send Email And We Will Contact You Shortly</p>
         </div>
         <section class="contact-main-box d-flex col-md-10 justify-content-between">
-            <section class="contact-info m-auto col-md-8 d-flex flex-column align-items-center gap-3 justify-content-center">
+            <section
+                class="contact-info m-auto col-md-8 d-flex flex-column align-items-center gap-3 justify-content-center">
                 <div class="info-box col-md-12">
                     <div class="contact-info-box d-flex align-items-center justify-content-around">
                         <div class="contact-type d-flex align-items-center justify-content-around">
@@ -59,7 +60,8 @@
                             <p class="m-0">Phone Number</p>
                         </div>
                         <div class="contact">
-                            <p class="m-0"><a href="tel:+995557980610">(+995) 557 98 06 10</a> <i class="fa-brands fa-whatsapp green"></i></p>
+                            <p class="m-0"><a href="tel:+995557980610">(+995) 557 98 06 10</a> <i
+                                    class="fa-brands fa-whatsapp green"></i></p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +83,8 @@
                             <p class="m-0">Mail</p>
                         </div>
                         <div class="contact">
-                            <p class="m-0"><a href="mailto:tegi.miqautadze0@gmail.com">tegi.miqautadze0@gmail.com</a></p>
+                            <p class="m-0"><a href="mailto:tegi.miqautadze0@gmail.com">tegi.miqautadze0@gmail.com</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -93,21 +96,21 @@
                 <div class="input-gr d-flex flex-column justify-content-between align-items-center">
                     <div class="name-lname d-flex col-md-12 justify-content-between gap-2">
                         <div class="input-box">
-                            <input type="text">
+                            <input type="text" id="nameInput">
                             <p class="placeh f-p" id="name" style="display: unset;">Enter Name</p>
                         </div>
                         <div class="input-box">
-                            <input type="text">
+                            <input type="text" id="lnameInput">
                             <p class="placeh f-p" id="lname" style="display: unset;">Enter Lastname</p>
                         </div>
                     </div>
                     <div class="input-box">
-                        <input type="email">
+                        <input type="email" id="emailInput">
                         <p class="placeh f-p" id="email" style="display: unset;">Enter Email</p>
                     </div>
                     <div class="input-box">
                         <textarea placeholder="Enter Text" name="txtarea" id="txt"></textarea>
-    
+
                     </div>
                     <div class="additional">
                         <button class="btn log-in-btn f-p">Send Email</button>
@@ -142,7 +145,14 @@
         <hr>
         <p class="copyright">&copy; Copyright 2023 All Rights Reserved. Guide In Kutaisi Powered By Tegi Mikautadze.</p>
     </footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
+    <script src="./contact.js"></script>
 </body>
-<script src="./contact.js"></script>
 
 </html>

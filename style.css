@@ -563,3 +563,12 @@ footer a:hover {
 .green {
     color: green!important;
 }
+
+.card-f {
+    align-self: flex-end;
+    height: 61px;
+}
+
+.card-body {
+    height: 238px;
+}

@@ -1,5 +1,5 @@
 import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import {getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+import {getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAV4hu9LixLMqppId6X2vnq_f9ua0cfvJ4",
@@ -105,6 +105,49 @@ setTimeout(() => {
         booksBody.innerHTML += toBooksBody(book)
     })
 }, 1000)
+
+const tripAddBtn = document.querySelector('.tripAddBtn')
+const offcanvas = document.querySelector('.body-e')
+var offcanvasAddBtnTrip;
+
+let tripAddInps = `<input type="text" name="" placeholder="saxeli" id="tripName">
+<input type="text" name="" placeholder="lokacia" id="tripLocation">
+<input type="text" name="" placeholder="tipi (Transfer, Individual, Group)" id="tripType">
+<input type="text" name="" placeholder="mtavari foto linki" id="tripImage">
+<div class="add-image-area">
+  <input type="text" placeholder="damatebiti foto linki" class="addImage">
+  <input type="text" placeholder="damatebiti foto linki" class="addImage">
+  <button class="add-additional">Add</button>
+</div>
+<input type="number" name="" placeholder="sale %-shi tu ar ari 0 chawere" id="sale">
+<input type="number" name="" placeholder="fasi" id="price">
+<input type="number" name="" placeholder="xalxis max raodenoba" id="maxPeople">
+<input type="number" name="" placeholder="xangrdzlivoba wutebshi" id="duration">
+<button class="btn btn-primary tripSubmitBtn">Submit</button>`
+
+tripAddBtn.addEventListener('click', () => {
+    offcanvas.innerHTML = tripAddInps
+    offcanvasAddBtnTrip = document.querySelector('.tripSubmitBtn')
+    offcanvasAddBtnTrip.addEventListener('click', ()=> {
+        let additionalImagesValues = []
+        const additionalImages = document.querySelectorAll('.addImage')
+        additionalImages.forEach(image => additionalImagesValues.push(image.value))
+        addDoc(tripsColRef, {
+            type: document.getElementById('tripType').value,
+            sale: document.getElementById('sale').value,
+            price: document.getElementById('price').value,
+            name: document.getElementById('tripName').value,
+            max_people: document.getElementById('maxPeople').value,
+            location: document.getElementById('tripLocation').value,
+            image: document.getElementById('tripImage').value,
+            duration: document.getElementById('duration').value,
+            additional_images: additionalImagesValues
+        })
+        .catch(err => {
+            console.log(err.message)
+        })
+    })
+})
 
 const usernameinp = document.querySelector('#username')
 const passinp = document.querySelector('#pass')

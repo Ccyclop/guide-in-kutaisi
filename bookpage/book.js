@@ -12,10 +12,7 @@ const firebaseConfig = {
 };
 const serviceId = 'service_svqzfb1'
 const templateId = 'template_qgio31r'
-var templateParams = {
-    to_email: 'tegi.miqautadze0@gmail.com',
-    from_email: 'guideinkutaisiofficial@gmail.com',
-}
+
 const publicKey = 'user_b5zCoR05KiRRYOmYCwcJW'
 
 
@@ -52,7 +49,15 @@ let toCarouselImg = (src, index) => {
             </div>`
 }
 
-
+var templateParams = {
+    to_email: 'tegi.miqautadze0@gmail.com',
+    from_email: 'guideinkutaisiofficial@gmail.com',
+    trip_name: trip.name,
+    trip_location: trip.location,
+    trip_price: trip.sale != 0 ? 'GEL ' + trip.price * ((100 - trip.sale)/100) + '.00' : 'GEL ' + trip.price + '.00',
+    book_date: '',
+    client_email: ''
+}
 
 tripName.innerHTML = trip.name
 durationPlace.innerHTML = trip.duration % 60 != 0 && trip.duration > 60 ? Math.trunc(trip.duration / 60 ) + ' Hour(s) ' + trip.duration % 60 + ' Minute(s)': '0 Hour(s) ' + trip.duration + ' Minute(s)'
@@ -104,15 +109,20 @@ bookBtn.addEventListener('click', () => {
             bookBtn.classList.remove('red-inp')
             bookDate.classList.remove('red-inp')
         }
-        books.forEach(book => {
-            if(book.bookDate == bookDate.value){
-                modalBody.innerHTML = '<p class="red">This Date Is Already Booked</p>'
-                confirmBtn.style.display = 'none'
-            } else {
-                confirmBtn.style.display = 'block'
-                modalBody.innerHTML = forModalBody(bookDate.value, emailInp.value)
-            }
-        })
+        if(books.length > 0){
+            books.forEach(book => {
+                if(book.bookDate == bookDate.value){
+                    modalBody.innerHTML = '<p class="red">This Date Is Already Booked</p>'
+                    confirmBtn.style.display = 'none'
+                } else {
+                    confirmBtn.style.display = 'block'
+                    modalBody.innerHTML = forModalBody(bookDate.value, emailInp.value)
+                }
+            })
+        } else {
+            confirmBtn.style.display = 'block'
+            modalBody.innerHTML = forModalBody(bookDate.value, emailInp.value)
+        }
         
     }
 })
@@ -127,24 +137,22 @@ confirmBtn.addEventListener('click', () => {
     .then(() => {
         modalBody.innerHTML = '<p class="green">Your Trip Is Booked Please Check Your Email</p>'
         confirmBtn.style.display = 'none'
-        emailjs.send(serviceId, 'template_exy4fzb', {
-            client_email: emailInp.value,
-            tour_name: trip.name,
-            tour_location: trip.location,
-            tour_price: trip.sale != 0 ? 'GEL ' + trip.price * ((100 - trip.sale)/100) + '.00' : 'GEL ' + trip.price + '.00',
-            tour_date: bookDate.value,
-        }, publicKey)
+        templateParams.book_date = bookDate.value
+        templateParams.client_email = emailInp.value
+        emailjs.send(serviceId, templateId, templateParams, publicKey)
+            .then(() => {
+                templateParams.to_email = emailInp.value
+                emailjs.send(serviceId, templateId, templateParams, publicKey)
+                    .then(()=> {
+                        window.location.reload()
+                    })
+                    .catch(err => {
+                        console.log(err.message, 'To Client')
+                    })
+            })
             .catch(err => {
                 console.log(err.message, 'To Me')
             })
-        templateParams.to_email = emailInp.value
-        emailjs.send(serviceId, templateId, templateParams, publicKey)
-            .catch(err => {
-                console.log(err.message, 'To Client')
-            })
-        setTimeout(()=> {
-            window.location.reload()
-        },1000)
     })
     .catch(err => {
         console.log(err.message)
