@@ -24,7 +24,7 @@ getDocs(colRef)
         snapshot.docs.forEach(doc => {
             trips.push({ ...doc.data(), id: doc.id })
         })
-        trips.forEach(trip => {
+        trips.splice(0,3).forEach(trip => {
             toCard(trip)
         })
         cards = document.querySelectorAll('.card')
@@ -55,7 +55,7 @@ const toCard = obj => {
         <div class="card-text d-flex flex-column gap-2">
             <div class="duration">
                 <i class="fa-regular fa-clock orange"></i>
-                <p class="poppins">${obj.duration % 60 != 0 && obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': '0 Hour(s) ' + obj.duration + ' Minute(s)'}</p>
+                <p class="poppins">${obj.duration % 60 != 0 || obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': '0 Hour(s) ' + obj.duration + ' Minute(s)'}</p>
             </div>
             <div class="location">
                 <i class="fa-solid fa-location-dot orange"></i>

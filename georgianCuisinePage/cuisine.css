@@ -81,4 +81,13 @@ header {
 
 .card {
     height: fit-content!important;
+    border: none!important;
+}
+
+.card-body {
+    height: fit-content;
+}
+
+.card img {
+    object-fit: contain;
 }

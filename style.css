@@ -477,7 +477,7 @@ footer hr {
 
 
 
-.fb, .in {
+.fb, .instagram {
     background-color: var(--color-orange);
     color: var(--color-white);
     width: 50px;
@@ -500,7 +500,7 @@ footer hr {
     left: -15px;
 }
 
-.in {
+.instagram {
     bottom: 152px;
     left: -15px;
 }

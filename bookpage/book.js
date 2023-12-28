@@ -94,7 +94,7 @@ let forModalBody =(date, email) => `<p>${date}</p>
 
 const confirmBtn = document.querySelector('.confirm')
 bookBtn.addEventListener('click', () => {
-    if(bookDate.value == '' && emailInp.value == ''){
+    if(bookDate.value == '' || emailInp.value == ''){
         if(validation.classList.contains('d-none')){
             validation.classList.remove('d-none')
             emailInp.classList.add('red-inp')

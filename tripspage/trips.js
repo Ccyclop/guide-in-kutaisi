@@ -48,7 +48,7 @@ getDocs(colRef)
 const cardBox = document.querySelector('.cards-bar')
 
 const toCard = obj => {
-    let card = `<div class="card ${obj.type} ${obj.location}" id="${obj.id}" style="width: 20rem;">
+    let card = `<div class="card ${obj.type} ${obj.location.split(' ')[0].toLowerCase()}" id="${obj.id}" style="width: 20rem;">
     <div class="card-img-top">
         <img src="${obj.image}" alt="...">
     </div>
@@ -58,7 +58,7 @@ const toCard = obj => {
         <div class="card-text d-flex flex-column gap-2">
             <div class="duration">
                 <i class="fa-regular fa-clock orange"></i>
-                <p class="poppins">${obj.duration % 60 != 0 && obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': '0 Hour(s) ' + obj.duration + ' Minute(s)'}</p>
+                <p class="poppins">${obj.duration % 60 != 0 || obj.duration > 60 ? Math.trunc(obj.duration / 60) + ' Hour(s)' + ' ' + obj.duration % 60 + ' Minute(s)': '0 Hour(s) ' + obj.duration + ' Minute(s)'}</p>
             </div>
             <div class="location">
                 <i class="fa-solid fa-location-dot orange"></i>
@@ -161,7 +161,7 @@ locationSelect.addEventListener('change', () => {
     //filter
     var selectedItem = locationSelect.options[locationSelect.selectedIndex].text
     if(selectedItem.split(' ')[0] != 'Please' && selectedItem.split(' ')[0] != 'Select'){
-        var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0]))
+        var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0].toLowerCase()))
         cards.forEach(o => o.style.display = 'none')
         locationFilteredCard.forEach(o => o.style.display = 'flex')
     }

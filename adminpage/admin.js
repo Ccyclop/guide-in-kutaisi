@@ -1,5 +1,5 @@
 import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import {getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAV4hu9LixLMqppId6X2vnq_f9ua0cfvJ4",
@@ -25,6 +25,13 @@ let trips = []
 let cuisine = []
 let books = []
 
+
+const tripsBody = document.querySelector('.trips-body')
+const cuisineBody = document.querySelector('.cuisine-body')
+const booksBody = document.querySelector('.books-body')
+
+var tripsDeleteBtns, booksDeleteBtns, cuisineDeleteBtns;
+
 getDocs(colRef)
     .then(snap => {
         snap.docs.forEach(doc => {
@@ -40,6 +47,19 @@ getDocs(tripsColRef)
         snapshot.docs.forEach(doc => {
             trips.push({...doc.data(), id: doc.id})
         })
+        trips.forEach(trip => {
+            tripsBody.innerHTML += toTripsBody(trip)
+        })
+        tripsDeleteBtns = document.querySelectorAll('.tr')
+        tripsDeleteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let id = btn.parentElement.id
+                let docRef = doc(db, 'Trips', id)
+                deleteDoc(docRef)
+                    .then(() => window.location.reload())
+                    .catch((err) => alert(`ver waishala - ${err.message}`))
+            })
+        })
     })
     .catch(err => {
         console.log(err.message)
@@ -49,6 +69,19 @@ getDocs(cuisineColRef)
     .then(snapshot => {
         snapshot.docs.forEach(doc => {
             cuisine.push({...doc.data(), id: doc.id})
+        })
+        cuisine.forEach(card => {
+            cuisineBody.innerHTML += toCuisineBody(card)
+        })
+        cuisineDeleteBtns = document.querySelectorAll('.cu')
+        cuisineDeleteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let id = btn.parentElement.id
+                let docRef = doc(db, 'Cuisine', id)
+                deleteDoc(docRef)
+                    .then(() => window.location.reload())
+                    .catch(err => alert(`ver waishala - ${err.message}`))
+            })
         })
     })
     .catch(err => {
@@ -60,15 +93,25 @@ getDocs(bookColRef)
         snapshot.docs.forEach(doc => {
             books.push({...doc.data(), id: doc.id})
         })
+        books.forEach(book => {
+            booksBody.innerHTML += toBooksBody(book)
+        })
+        booksDeleteBtns = document.querySelectorAll('.bk')
+        booksDeleteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let id = btn.parentElement.id
+                let docRef = doc(db, 'Books', id)
+                deleteDoc(docRef)
+                    .then(() => window.location.reload())
+                    .catch(err => alert(`ver waishala - ${err.message}`))
+            })
+        })
     })
     .catch(err => {
         console.log(err.message)
     })
 
 // get data in accordion
-const tripsBody = document.querySelector('.trips-body')
-const cuisineBody = document.querySelector('.cuisine-body')
-const booksBody = document.querySelector('.books-body')
 
 const toBooksBody = obj => {
     let tableRow = `<tr>
@@ -76,8 +119,20 @@ const toBooksBody = obj => {
                         <td>${obj.bookEmail}</td>
                         <td>${obj.tripId}</td>
                         <td>${obj.paymentStatus ? '<span class="green"> Payed </span>' : '<span class="red"> Not Payed </span>'}</td>
-                        <td id="${obj.id}"><span class='red'>Delete</span> <span class='green'>Update</span></td>
+                        <td id="${obj.id}"><span class='red bk'>Delete</span> <span class='green'>Update</span></td>
                     </tr>`
+    return tableRow
+}
+
+const toCuisineBody = obj => {
+    let tableRow = `<tr>
+    <td>${obj.type}</td>
+    <td>${obj.name}</td>
+    <td>${obj.image}</td>
+    <td>${obj.price}</td>
+    <td>${obj.sale}</td>
+    <td id="${obj.id}"><span class='red cu'>Delete</span> <span class='green'>Update</span></td>   
+    </tr>`
     return tableRow
 }
 
@@ -92,48 +147,69 @@ const toTripsBody = obj => {
                         <td>${obj.sale}</td>
                         <td>${obj.image}</td>
                         <td>${obj.additional_images}</td>
-                        <td id="${obj.id}"><span class='red'>Delete</span> <span class='green'>Update</span></td>
+                        <td id="${obj.id}"><span class='red tr'>Delete</span> <span class='green'>Update</span></td>
                         
                     </tr>`
     return tableRow
 }
-setTimeout(() => {
-    trips.forEach(trip => {
-        tripsBody.innerHTML += toTripsBody(trip)
-    })
-    books.forEach(book => {
-        booksBody.innerHTML += toBooksBody(book)
-    })
-}, 1000)
 
+const cuisineAddBtn = document.querySelector('.cuisineAddBtn')
 const tripAddBtn = document.querySelector('.tripAddBtn')
 const offcanvas = document.querySelector('.body-e')
-var offcanvasAddBtnTrip;
+var offcanvasAddBtn;
 
 let tripAddInps = `<input type="text" name="" placeholder="saxeli" id="tripName">
-<input type="text" name="" placeholder="lokacia" id="tripLocation">
-<input type="text" name="" placeholder="tipi (Transfer, Individual, Group)" id="tripType">
+<input type="text" name="" placeholder="lokacia - tu groupia dawere (ricxvi) mxolod ramden dgiania" id="tripLocation">
 <input type="text" name="" placeholder="mtavari foto linki" id="tripImage">
+<select id="tripType">
+    <option value='' selected >turis tipi</option>
+    <option value=''>Transfer</option>
+    <option value=''>Individual</option>
+    <option value=''>Group</option>
+</select>
 <div class="add-image-area">
   <input type="text" placeholder="damatebiti foto linki" class="addImage">
   <input type="text" placeholder="damatebiti foto linki" class="addImage">
   <button class="add-additional">Add</button>
 </div>
-<input type="number" name="" placeholder="sale %-shi tu ar ari 0 chawere" id="sale">
+<input type="number" name="" placeholder="sale %-shi (tu ar ari 0 chawere)" id="sale">
 <input type="number" name="" placeholder="fasi" id="price">
 <input type="number" name="" placeholder="xalxis max raodenoba" id="maxPeople">
 <input type="number" name="" placeholder="xangrdzlivoba wutebshi" id="duration">
 <button class="btn btn-primary tripSubmitBtn">Submit</button>`
 
+let cuisineAddInps = `<select name="" id="typeSelect">
+<option selected value="">Select type</option>
+<option value="">snack</option>
+<option value="">alchohol</option>
+</select>
+<input type="text" name="" id="cuisineName" placeholder="dasaxeleba">
+<input type="text" name="" id="cuisineImage" placeholder="fotos linki">
+<input type="number" name="" id="sale" placeholder="fasdakleba %-shi (tu ar aris 0 dawere)">
+<input type="number" name="" id="price" placeholder="fasi">
+<button class="btn btn-primary" id="finalConfirmBtn">Submit</button>`
+
+const closeBtn = document.querySelector('.btn-close')
+
 tripAddBtn.addEventListener('click', () => {
     offcanvas.innerHTML = tripAddInps
-    offcanvasAddBtnTrip = document.querySelector('.tripSubmitBtn')
-    offcanvasAddBtnTrip.addEventListener('click', ()=> {
+    offcanvasAddBtn = document.querySelector('.tripSubmitBtn')
+    const additionalImageAdd = document.querySelector('.add-additional')
+    const area = document.querySelector('.add-image-area')
+    additionalImageAdd.addEventListener('click',() => {
+        if(area.children.length != 5) {
+            area.innerHTML += `<input type="text" placeholder="damatebiti foto linki" class="addImage">`
+        } else {
+            console.log('meti agar')
+        }
+    })
+    offcanvasAddBtn.addEventListener('click', ()=> {
         let additionalImagesValues = []
         const additionalImages = document.querySelectorAll('.addImage')
         additionalImages.forEach(image => additionalImagesValues.push(image.value))
+        let tripType = document.getElementById('tripType')
         addDoc(tripsColRef, {
-            type: document.getElementById('tripType').value,
+            type: tripType.options[tripType.selectedIndex].text,
             sale: document.getElementById('sale').value,
             price: document.getElementById('price').value,
             name: document.getElementById('tripName').value,
@@ -143,9 +219,31 @@ tripAddBtn.addEventListener('click', () => {
             duration: document.getElementById('duration').value,
             additional_images: additionalImagesValues
         })
+        .then(() => {
+            closeBtn.click()
+        })
         .catch(err => {
             console.log(err.message)
         })
+    })
+})
+
+cuisineAddBtn.addEventListener('click', () => {
+    offcanvas.innerHTML = cuisineAddInps
+    offcanvasAddBtn = document.querySelector('#finalConfirmBtn')
+    offcanvasAddBtn.addEventListener('click', () => {
+        let cuisineType = document.querySelector('#typeSelect')
+        addDoc(cuisineColRef, {
+            type: cuisineType.options[cuisineType.selectedIndex].text,
+            sale: document.getElementById('sale').value,
+            price: document.getElementById('price').value,
+            name: document.getElementById('cuisineName').value,
+            image: document.getElementById('cuisineImage').value
+        })
+        .then(() => {
+            closeBtn.click()
+        })
+        .catch(err => alert(`ver daemata - ${err.message}`))
     })
 })
 
