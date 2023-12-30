@@ -25,12 +25,115 @@ let trips = []
 let cuisine = []
 let books = []
 
-
+const modalBody = document.querySelector('.modal-body')
 const tripsBody = document.querySelector('.trips-body')
 const cuisineBody = document.querySelector('.cuisine-body')
 const booksBody = document.querySelector('.books-body')
 
 var tripsDeleteBtns, booksDeleteBtns, cuisineDeleteBtns;
+var tripsUpdateBtns, booksUpdateBtns, cuisineUpdateBtns;
+
+let booksUpdateInps = obj => {
+    let inps = `
+    <div class="d-flex flex-column">
+            <label for="bookUpdateDate">Book Date (YYYY-MM-DD)</label>
+            <input type="text" name="" id="bookUpdateDate" value="${obj.bookDate}">
+          </div>
+          <div class="d-flex flex-column">
+            <label for="bookUpdateDate">Book Email</label>
+            <input type="email" name="" id="bookUpdateEmail" value="${obj.bookEmail}">
+          </div>
+          <div class="d-flex flex-column">
+            <label for="bookUpdateDate">Booked Trip Id</label>
+            <input type="text" name="" id="bookUpdateId" value="${obj.tripId}">
+          </div>
+          <label for="bookUpdateDate">Payment Statys</label>
+          <input type="checkbox" name="" id="bookUpdatePayment" ${obj.paymentStatus ? 'checked': ''}>
+    `
+
+    return inps
+}
+
+let cuisineUpdateInps = obj => {
+    let inps = `
+    <div class="d-flex flex-column">
+    <label for="cuisineUpdateType">Type</label>
+    <select name="" id="cuisineUpdateType">
+        <option ${obj.type == 'snack'? 'selected':''}>snack</option>
+        <option ${obj.type == 'alchohol'? 'selected':''}>alchohol</option>
+    </select>
+    </div>
+    <div class="d-flex flex-column">
+    <label for="cuisineUpdateName">Name</label>
+    <input type="text" name="" id="cuisineUpdateName" value="${obj.name}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="cuisineUpdateImage">Image</label>
+    <input type="text" name="" id="cuisineUpdateImage" value="${obj.image}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="cuisineUpdateSale">Sale</label>
+    <input type="number" name="" id="cuisineUpdateSale" value="${obj.sale}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="cuisineUpdatePrice">Price</label>
+    <input type="number" name="" id="cuisineUpdatePrice" value="${obj.price}">
+    </div>
+    `
+
+    return inps
+}
+
+let tipUpdateInps = obj => {
+    let inps = `
+    <div class="d-flex flex-column">
+        <label for="tripUpdateType">Type</label>
+        <select id="updateType">
+            <option ${obj.type == 'Individual'? 'selected' : ''}>Individual</option>
+            <option ${obj.type == 'Transfer'? 'selected' : ''}>Transfer</option>
+            <option ${obj.type == 'Group'? 'selected' : ''}>Group</option>
+        </select>
+    </div>
+    <div class="d-flex flex-column">
+    <label for="tripUpdateName">Name</label>
+    <input type="text" name="" id="tripUpdateName" value="${obj.name}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="tripUpdateLocation">Location</label>
+    <input type="text" name="" id="tripUpdateLocation" value="${obj.location}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="tripUpdateMainImage">Main Image</label>
+    <input type="text" name="" id="tripUpdateMainImage" value="${obj.image}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="additionalImages">Additional Images</label>
+    <div class="add-img-area">
+
+    </div>
+    </div>
+    <div class="d-flex flex-column">
+    <label for="tripUpdateDuration">Duration</label>
+    <input type="number" id="tripUpdateDuration" value="${obj.duration}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="tripUpdateMaxPeople">Max People</label>
+    <input type="number" name="" id="tripUpdateMaxPeople" value="${obj.max_people}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="updateSale">Sale</label>
+    <input type="number" name="" id="updateSale" value="${obj.sale}">
+    </div>
+    <div class="d-flex flex-column">
+    <label for="updatePrice">Price</label>
+    <input type="number" name="" id="updatePrice" value="${obj.price}">
+    </div>
+    `
+
+    return inps
+}
+
+
 
 getDocs(colRef)
     .then(snap => {
@@ -50,6 +153,7 @@ getDocs(tripsColRef)
         trips.forEach(trip => {
             tripsBody.innerHTML += toTripsBody(trip)
         })
+        tripsUpdateBtns = document.querySelectorAll('.tru')
         tripsDeleteBtns = document.querySelectorAll('.tr')
         tripsDeleteBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -58,6 +162,25 @@ getDocs(tripsColRef)
                 deleteDoc(docRef)
                     .then(() => window.location.reload())
                     .catch((err) => alert(`ver waishala - ${err.message}`))
+            })
+        })
+        tripsUpdateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalBody.innerHTML = tipUpdateInps(trips.filter(trip => trip.id == btn.parentElement.id)[0])
+                modalBody.id = btn.parentElement.id
+                let addImageInps = document.createElement('div')
+                addImageInps.classList.add('add-image-inps')
+                modalBody.appendChild(addImageInps)
+                let trip = trips.filter(el => el.id == btn.parentElement.id)
+                trip[0].additional_images.forEach(image => {
+                    let inputToAdd = document.createElement('input')
+                    inputToAdd.type = 'text'
+                    inputToAdd.classList.add('additional-image')
+                    inputToAdd.value = image
+                    addImageInps.appendChild(inputToAdd)
+                })
+                
+                
             })
         })
     })
@@ -83,6 +206,13 @@ getDocs(cuisineColRef)
                     .catch(err => alert(`ver waishala - ${err.message}`))
             })
         })
+        cuisineUpdateBtns = document.querySelectorAll('.cuu')
+        cuisineUpdateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalBody.innerHTML = cuisineUpdateInps(cuisine.filter(o => o.id == btn.parentElement.id)[0])
+                modalBody.id = btn.parentElement.id
+            })
+        })
     })
     .catch(err => {
         console.log(err.message)
@@ -106,6 +236,13 @@ getDocs(bookColRef)
                     .catch(err => alert(`ver waishala - ${err.message}`))
             })
         })
+        booksUpdateBtns = document.querySelectorAll('.bku')
+        booksUpdateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalBody.innerHTML = booksUpdateInps(books.filter(o => o.id == btn.parentElement.id)[0])
+                modalBody.id = btn.parentElement.id
+            })
+        })
     })
     .catch(err => {
         console.log(err.message)
@@ -119,7 +256,7 @@ const toBooksBody = obj => {
                         <td>${obj.bookEmail}</td>
                         <td>${obj.tripId}</td>
                         <td>${obj.paymentStatus ? '<span class="green"> Payed </span>' : '<span class="red"> Not Payed </span>'}</td>
-                        <td id="${obj.id}"><span class='red bk'>Delete</span> <span class='green'>Update</span></td>
+                        <td id="${obj.id}"><span class='red bk'>Delete</span> <span class='green bku' data-bs-toggle="modal" data-bs-target="#exampleModal">Update</span></td>
                     </tr>`
     return tableRow
 }
@@ -131,7 +268,7 @@ const toCuisineBody = obj => {
     <td>${obj.image}</td>
     <td>${obj.price}</td>
     <td>${obj.sale}</td>
-    <td id="${obj.id}"><span class='red cu'>Delete</span> <span class='green'>Update</span></td>   
+    <td id="${obj.id}"><span class='red cu'>Delete</span> <span class='green cuu' data-bs-toggle="modal" data-bs-target="#exampleModal">Update</span></td>   
     </tr>`
     return tableRow
 }
@@ -147,7 +284,7 @@ const toTripsBody = obj => {
                         <td>${obj.sale}</td>
                         <td>${obj.image}</td>
                         <td>${obj.additional_images}</td>
-                        <td id="${obj.id}"><span class='red tr'>Delete</span> <span class='green'>Update</span></td>
+                        <td id="${obj.id}"><span class='red tr'>Delete</span> <span class='green tru' data-bs-toggle="modal" data-bs-target="#exampleModal">Update</span></td>
                         
                     </tr>`
     return tableRow
