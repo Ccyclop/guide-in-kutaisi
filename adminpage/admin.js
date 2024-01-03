@@ -1,5 +1,5 @@
 import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc , updateDoc} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAV4hu9LixLMqppId6X2vnq_f9ua0cfvJ4",
@@ -32,6 +32,8 @@ const booksBody = document.querySelector('.books-body')
 
 var tripsDeleteBtns, booksDeleteBtns, cuisineDeleteBtns;
 var tripsUpdateBtns, booksUpdateBtns, cuisineUpdateBtns;
+
+var modalSubmitButton;
 
 let booksUpdateInps = obj => {
     let inps = `
@@ -107,10 +109,6 @@ let tipUpdateInps = obj => {
     <input type="text" name="" id="tripUpdateMainImage" value="${obj.image}">
     </div>
     <div class="d-flex flex-column">
-    <label for="additionalImages">Additional Images</label>
-    <div class="add-img-area">
-
-    </div>
     </div>
     <div class="d-flex flex-column">
     <label for="tripUpdateDuration">Duration</label>
@@ -128,6 +126,7 @@ let tipUpdateInps = obj => {
     <label for="updatePrice">Price</label>
     <input type="number" name="" id="updatePrice" value="${obj.price}">
     </div>
+    <label for="additionalImages">Additional Images</label>
     `
 
     return inps
@@ -179,7 +178,31 @@ getDocs(tripsColRef)
                     inputToAdd.value = image
                     addImageInps.appendChild(inputToAdd)
                 })
-                
+                modalSubmitButton = document.querySelector('.mdlbtn')
+                modalSubmitButton.addEventListener('click', () => {
+                    let docRef = doc(db, 'Trips', modalBody.id)
+                    let inputs = modalBody.querySelectorAll('input')
+                    let select = modalBody.querySelector('#updateType')
+                    let additionalImagesUpdateInps = addImageInps.querySelectorAll('input')
+                    let additionalImagesUpdateValues = []
+                    additionalImagesUpdateInps.forEach(inp => {
+                        additionalImagesUpdateValues.push(inp.value)
+                    })
+                    let document = {
+                        name: [...inputs].filter(inp => inp.id == 'tripUpdateName')[0].value,
+                        type: select.options[select.selectedIndex].text,
+                        location: [...inputs].filter(inp => inp.id == 'tripUpdateLocation')[0].value,
+                        image: [...inputs].filter(inp => inp.id == 'tripUpdateMainImage')[0].value,
+                        additional_images: additionalImagesUpdateValues,
+                        duration: [...inputs].filter(inp => inp.id == 'tripUpdateDuration')[0].value,
+                        max_people: [...inputs].filter(inp => inp.id == 'tripUpdateMaxPeople')[0].value,
+                        sale: [...inputs].filter(inp => inp.id == 'updateSale')[0].value,
+                        price: [...inputs].filter(inp => inp.id == 'updatePrice')[0].value,
+                    }
+                    updateDoc(docRef, document)
+                        .then(() => alert('updated'))
+                        .catch(err => alert(err.message))
+                })
                 
             })
         })
@@ -211,6 +234,22 @@ getDocs(cuisineColRef)
             btn.addEventListener('click', () => {
                 modalBody.innerHTML = cuisineUpdateInps(cuisine.filter(o => o.id == btn.parentElement.id)[0])
                 modalBody.id = btn.parentElement.id
+                let modalSubmitButton = document.querySelector('.mdlbtn')
+                modalSubmitButton.addEventListener('click', () => {
+                    let docRef = doc(db, 'Cuisine', modalBody.id)
+                    let inputs = modalBody.querySelectorAll('input')
+                    let select = modalBody.querySelector('#cuisineUpdateType')
+                    let document = {
+                        type: select.options[select.selectedIndex].text,
+                        name: [...inputs].filter(inp => inp.id == 'cuisineUpdateName')[0].value,
+                        image: [...inputs].filter(inp => inp.id == 'cuisineUpdateImage')[0].value,
+                        sale: [...inputs].filter(inp => inp.id == 'cuisineUpdateSale')[0].value,
+                        price: [...inputs].filter(inp => inp.id == 'cuisineUpdatePrice')[0].value,
+                    }
+                    updateDoc(docRef, document)
+                        .then(() => alert('Updated'))
+                        .catch(err => alert(err.message))
+                })
             })
         })
     })
@@ -241,6 +280,20 @@ getDocs(bookColRef)
             btn.addEventListener('click', () => {
                 modalBody.innerHTML = booksUpdateInps(books.filter(o => o.id == btn.parentElement.id)[0])
                 modalBody.id = btn.parentElement.id
+                let modalSubmitButton = document.querySelector('.mdlbtn')
+                modalSubmitButton.addEventListener('click', () => {
+                    let docRef = doc(db, 'Books', modalBody.id)
+                    let inputs = modalBody.querySelectorAll('input')
+                    let document = {
+                        bookDate: [...inputs].filter(inp => inp.id == 'bookUpdateDate')[0].value,
+                        bookEmail: [...inputs].filter(inp => inp.id == 'bookUpdateEmail')[0].value,
+                        tripId: [...inputs].filter(inp => inp.id == 'bookUpdateId')[0].value,
+                        paymentStatus: [...inputs].filter(inp => inp.id == 'bookUpdatePayment')[0].checked,
+                    }
+                    updateDoc(docRef, document)
+                        .then(() => alert('updated'))
+                        .catch(err => alert(err.message))
+                })
             })
         })
     })
@@ -386,15 +439,19 @@ cuisineAddBtn.addEventListener('click', () => {
 
 const usernameinp = document.querySelector('#username')
 const passinp = document.querySelector('#pass')
-const btn = document.querySelector('.btn')
+const btn = document.querySelector('.loginBtn')
+const loginarea = document.getElementById('login')
+const adminPanel = document.getElementById('adminPanel')
 
-// btn.addEventListener('click', function(){
-//     let username = usernameinp.value
-//     let pass = passinp.value
-//     adminUsers.forEach(admin => {
-//         if(username == admin.Username && pass == admin.Password){
-//             pass
-//             // render main admin page
-//         }
-//     })
-// })
+btn.addEventListener('click', function(){
+    let username = usernameinp.value
+    let pass = passinp.value
+    adminUsers.forEach(admin => {
+        if(username == admin.Username && pass == admin.Password){
+            loginarea.style.display = 'none'
+            adminPanel.style.display = 'flex'
+        } else {
+            alert('wrong credentials')
+        }
+    })
+})
