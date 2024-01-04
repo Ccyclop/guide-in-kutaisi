@@ -36,8 +36,7 @@ getDocs(colRef)
         cardBtn.forEach(btn => {
         btn.addEventListener('click', () => {
             let tripId = btn.parentElement.parentElement.parentElement.id
-            trips = trips.filter(trip => trip.id == tripId)
-            localStorage['trip'] = JSON.stringify(trips[0])
+            localStorage['trip'] = JSON.stringify(trips.filter(trip => trip.id == tripId)[0])
         })
     })
     })
@@ -79,7 +78,7 @@ const toCard = obj => {
     </div>
 </div>`
     
-    cardBox.innerHTML += card
+    cardBox.innerHTML = card + cardBox.innerHTML
 
 }
 

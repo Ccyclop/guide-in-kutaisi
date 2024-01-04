@@ -505,7 +505,7 @@ footer hr {
     left: -15px;
 }
 
-.fb:hover, .in:hover {
+.fb:hover, .instagram:hover {
     left: 0px;
     cursor: pointer;
 }
@@ -571,4 +571,25 @@ footer a:hover {
 
 .card-body {
     height: 238px;
+}
+
+.partners-box {
+    height: 500px;
+    flex-wrap: wrap!important;
+    overflow-x: scroll;
+
+}
+
+.partner-logo {
+    height: 45%;
+    width: 20%;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    overflow: hidden;
+}
+
+.partner-logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

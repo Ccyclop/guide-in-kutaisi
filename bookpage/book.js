@@ -50,7 +50,7 @@ let toCarouselImg = (src, index) => {
 }
 
 var templateParams = {
-    to_email: 'tegi.miqautadze0@gmail.com',
+    to_email: 'guideinkutaisiofficial@gmail.com',
     from_email: 'guideinkutaisiofficial@gmail.com',
     trip_name: trip.name,
     trip_location: trip.location,

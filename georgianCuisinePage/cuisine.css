@@ -91,3 +91,29 @@ header {
 .card img {
     object-fit: contain;
 }
+
+.explain {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.explain p:nth-child(1){
+    color: var(--color-orange);
+    font-family: var(--font-poppins);
+    font-size: 25px;
+    font-weight: 600;
+
+}
+
+.explain p:nth-child(2){
+    color: var(--color-orange);
+    font-family: var(--font-poppins);
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.8;
+}

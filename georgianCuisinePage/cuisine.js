@@ -28,10 +28,9 @@ const toCuisineCard = obj => {
                         <h5 class="card-title">${obj.name}</h5>
                         <hr>
                         <div class="card-f d-flex justify-content-between align-items-end col-md-12">
-                            <a href="" class="btn btn-primary card-btn">Order</a>
                             <div class="price-box d-flex flex-column align-items-end gap-1">
-                                <span style='display: ${obj.sale != 0 ? 'block;': 'none;'}' class='no-price'>GEL${obj.price}</span>
-                                <span class="price">GEL${obj.sale != 0 ? obj.price * ((100 - obj.sale)/100) : obj.price}</span>
+                                <span style='display: ${obj.sale != 0 ? 'block;': 'none;'}' class='no-price'>GEL ${obj.price}</span>
+                                <span class="price">GEL ${obj.sale != 0 ? obj.price * ((100 - obj.sale)/100) : obj.price}</span>
                             </div>
                         </div>  
                     </div>
