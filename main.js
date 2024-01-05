@@ -80,18 +80,16 @@ const toCard = obj => {
 
 }
 
-const header = document.querySelector('header')
+
+const responsivenavbar = document.querySelector('.container-fluid')
 
 window.addEventListener('scroll', function () {
     if (window.scrollY > window.screen.height - 200) {
-        header.style.backgroundColor = 'rgba(237, 150, 71, 0.60)'
+        responsivenavbar.style.backgroundColor = 'rgba(237, 150, 71, 0.60)'
     } else {
-        header.style.backgroundColor = 'transparent'
+        responsivenavbar.style.backgroundColor = 'transparent'
     }
 })
-
-// amis mere mercheba admin paneli gasaketebli
-// snackebi da ase shemdeg gasaketebeli.
 
 let individualOptions = `
     <option selected value="">Select Tour Location...</option>

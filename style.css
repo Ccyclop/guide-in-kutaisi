@@ -6,16 +6,16 @@
 }
 
 :root {
-    --color-orange: rgb(237,150,71);
-    --color-white: rgb(253,252,248);
-    --color-purple: rgb(132,85,246);
+    --color-orange: rgb(237, 150, 71);
+    --color-white: rgb(253, 252, 248);
+    --color-purple: rgb(132, 85, 246);
     --font-poppins: 'Poppins', sans-serif;
     --font-sylvie: 'Sylvie';
 }
 
 .card {
-    border-radius: 20px!important;
-    overflow: hidden!important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -46,7 +46,7 @@ header {
     transform: scale(1.2);
 }
 
-.navigation {
+nav {
     list-style-type: none;
     display: flex;
     align-items: center;
@@ -55,17 +55,22 @@ header {
     height: 100%;
     margin: 0;
     padding: 0;
+    height: 105px;
+    background-color: transparent;
+    transition-duration: 0.4s;
 }
 
-.navigation a {
-    color: var(--color-white);
+
+
+.navbar-nav a {
+    color: var(--color-white) !important;
     text-decoration: none;
     font-family: var(--font-poppins);
     transition-duration: 0.4s;
     position: relative;
 }
 
-.navigation a::before {
+.navbar-nav a::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -78,19 +83,29 @@ header {
     transform: scaleX(0);
     transition: transform .3s ease-in-out;
 }
-  
-.navigation a:hover::before {
+
+.navbar-nav a:hover::before {
     transform-origin: left;
     transform: scaleX(1);
 }
 
-.navigation a:hover {
-    color: var(--color-orange);
+.navbar-nav a:hover {
+    color: var(--color-orange)!important;
+}
+
+.navbar-toggler {
+    color: var(--color-white)!important;
+    border: none!important;
 }
 
 nav {
-    width: 40%;
+    width: 100%;
     padding-right: 20px;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+    transition-duration: 0.4s;
 }
 
 .hero-box {
@@ -111,7 +126,7 @@ nav {
     background-color: rgba(0, 0, 0, 0.389);
 }
 
-.text{
+.text {
     width: max-content;
     max-width: 450px;
     height: 400px;
@@ -125,13 +140,12 @@ nav {
 
 .title {
     color: var(--color-orange);
-    font-family: var(--font-sylvie);
+    font-family: var(--font-poppins);
     font-size: 55px;
-    letter-spacing: 4px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
-video{
+video {
     position: fixed;
     top: 0;
     z-index: -1;
@@ -143,7 +157,7 @@ video{
 .desc {
     text-align: center;
     color: var(--color-white);
-    font-family: var(--font-sylvie);
+    font-family: var(--font-poppins);
     font-size: 40px;
 }
 
@@ -155,11 +169,13 @@ video{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 50px auto 100px!important;
-    height: calc(100vh - 390px);
+    margin: 50px auto 100px !important;
+    height: 600px;
 }
 
-.search-box input, .search-box select, .search-box button {
+.search-box input,
+.search-box select,
+.search-box button {
     border: none;
     border-radius: 0;
     border-bottom: 1px solid rgb(204, 204, 204);
@@ -169,7 +185,7 @@ video{
 .search-box button {
     background-color: var(--color-orange);
     width: 100%;
-    color: var(--color-white)!important;
+    color: var(--color-white) !important;
     border: 2px solid var(--color-orange);
     border-radius: 10px;
     transition-duration: 0.4s;
@@ -180,16 +196,17 @@ video{
 }
 
 .search-box button:hover {
-    color: var(--color-orange)!important;
+    color: var(--color-orange) !important;
     background-color: var(--color-white);
     border: 2px solid var(--color-orange);
 }
 
-.search-box input:focus, .search-box select:focus {
+.search-box input:focus,
+.search-box select:focus {
     outline: none;
     box-shadow: none;
     border-color: var(--color-orange);
-} 
+}
 
 .section-heading-box {
     position: relative;
@@ -324,7 +341,7 @@ video{
 }
 
 .no-price {
-    color: red;   
+    color: red;
     text-decoration: line-through;
     font-size: 18px;
 }
@@ -350,7 +367,7 @@ video{
 }
 
 .stars {
-    display: block!important;
+    display: block !important;
 }
 
 .stars i {
@@ -477,7 +494,8 @@ footer hr {
 
 
 
-.fb, .instagram {
+.fb,
+.instagram {
     background-color: var(--color-orange);
     color: var(--color-white);
     width: 50px;
@@ -505,7 +523,8 @@ footer hr {
     left: -15px;
 }
 
-.fb:hover, .instagram:hover {
+.fb:hover,
+.instagram:hover {
     left: 0px;
     cursor: pointer;
 }
@@ -530,38 +549,38 @@ footer a:hover {
 }
 
 .dropdown-menu {
-    background-color: transparent!important;
-    border: none!important;
+    background-color: transparent !important;
+    border: none !important;
 }
 
 .dropdown:focus-visible {
-    border: none!important;
-    outline: none!important;
-    color: var(--color-orange)!important;
-    box-shadow: none!important;
+    border: none !important;
+    outline: none !important;
+    color: var(--color-orange) !important;
+    box-shadow: none !important;
 }
 
 .nav-link:focus {
-    border: none!important;
-    outline: none!important;
-    color: var(--color-orange)!important;
-    box-shadow: none!important;
+    border: none !important;
+    outline: none !important;
+    color: var(--color-orange) !important;
+    box-shadow: none !important;
 }
 
 .dropdown-menu li a:hover {
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
 .dropdown-item:hover {
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
-.dropdown-item a{
+.dropdown-item a {
     color: var(--color-orange);
 }
 
 .green {
-    color: green!important;
+    color: green !important;
 }
 
 .card-f {
@@ -575,7 +594,7 @@ footer a:hover {
 
 .partners-box {
     height: 500px;
-    flex-wrap: wrap!important;
+    flex-wrap: wrap !important;
     overflow-x: scroll;
 
 }
