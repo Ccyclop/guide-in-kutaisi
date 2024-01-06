@@ -1,0 +1,40 @@
+@media screen and (max-width: 1024px) {
+    .logo {
+        margin-left: 20px;
+    }
+
+    .navbar {
+        padding-top: 0;
+    }
+
+    .contact-main-box {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    main {
+        height: unset;
+        padding: 20px 0px;
+    }
+
+    .contact-type {
+        width: 150px;
+    }
+
+    a[href='mailto:guideinkutaisiofficial@gmail.com'] {
+        font-size: 10px;
+    }
+
+    .contact-box {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .input-gr {
+        padding: 20px;
+    }
+
+    .copyright {
+        font-size: 10px;
+    }
+}

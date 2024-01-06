@@ -1,5 +1,8 @@
 header {
     position: static;
+}
+
+.container-fluid {
     background-color: rgba(237, 150, 71, 0.60);
 }
 
@@ -117,3 +120,4 @@ header {
     font-weight: 400;
     opacity: 0.8;
 }
+

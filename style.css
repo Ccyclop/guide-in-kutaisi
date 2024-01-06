@@ -63,7 +63,7 @@ nav {
 
 
 .navbar-nav a {
-    color: var(--color-white) !important;
+    color: var(--color-white);
     text-decoration: none;
     font-family: var(--font-poppins);
     transition-duration: 0.4s;
@@ -575,8 +575,8 @@ footer a:hover {
     background-color: transparent !important;
 }
 
-.dropdown-item a {
-    color: var(--color-orange);
+.dropdown-item {
+    color: var(--color-orange)!important;
 }
 
 .green {
@@ -612,3 +612,4 @@ footer a:hover {
     width: 100%;
     object-fit: cover;
 }
+

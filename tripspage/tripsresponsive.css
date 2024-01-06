@@ -1,0 +1,39 @@
+@media screen and (max-width: 1024px) {
+    .main-bar {
+        flex-direction: column;
+    }
+
+    .filter-bar {
+        width: 100%;
+        padding: 0px;
+        margin-bottom: 20px;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    .cards-bar {
+        width: 100%;
+    }
+
+    .not-found {
+        text-align: center;
+    }
+
+    .copyright {
+        font-size: 10px;
+    }
+    
+    .card {
+        height: fit-content!important;
+    }
+
+    .navbar {
+        padding-top: 0px;
+    }
+    
+    .logo {
+        margin-left: 20px;
+    }
+}

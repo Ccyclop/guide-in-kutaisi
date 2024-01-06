@@ -9,8 +9,12 @@ main {
 }
 
 header {
-    background-color: rgba(237, 150, 71, 0.60);
+    
     position: static;
+}
+
+.container-fluid {
+    background-color: rgba(237, 150, 71, 0.60);
 }
 
 .contact-main-box {
