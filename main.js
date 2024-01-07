@@ -81,12 +81,18 @@ const toCard = obj => {
 
 
 const responsivenavbar = document.querySelector('.container-fluid')
+const navLinks = document.querySelectorAll('.nav-link')
+const img = document.querySelector('.logo').querySelector('img')
 
 window.addEventListener('scroll', function () {
     if (window.scrollY > window.screen.height - 200) {
-        responsivenavbar.style.backgroundColor = 'rgba(237, 150, 71, 0.60)'
+        responsivenavbar.style.backgroundColor = 'rgba(83, 83, 83, 0.1)'
+        navLinks.forEach(elem => elem.style.color = 'black')
+        img.src = './Images/main_logo.png'
     } else {
         responsivenavbar.style.backgroundColor = 'transparent'
+        navLinks.forEach(elem => elem.style.color = 'white')
+        img.src = './Images/main_logo_white.png'
     }
 })
 

@@ -71,12 +71,18 @@ trip.additional_images.forEach((img,ind) => {
 
 // header 
 const header = document.querySelector('.container-fluid')
+const img = header.querySelector('img')
+const links = header.querySelectorAll('.nav-link')
 
 window.addEventListener('scroll', function(){
     if(window.scrollY > window.screen.height - 200){
-        header.style.backgroundColor = 'rgba(237, 150, 71, 0.60)'
+        header.style.backgroundColor = 'rgba(83, 83, 83, 0.1)'
+        img.src = '../Images/main_logo.png'
+        links.forEach(elem => elem.style.color = "black")
     } else {
         header.style.backgroundColor = 'transparent'
+        img.src = '../Images/main_logo_white.png'
+        links.forEach(elem => elem.style.color = "white")
     }
 })
 

@@ -143,4 +143,8 @@
     .navbar {
         padding-top: 0;
     }
+
+    .front-heading {
+        display: block;
+    }
 }
