@@ -70,7 +70,7 @@ trip.additional_images.forEach((img,ind) => {
 })
 
 // header 
-const header = document.querySelector('header')
+const header = document.querySelector('.container-fluid')
 
 window.addEventListener('scroll', function(){
     if(window.scrollY > window.screen.height - 200){

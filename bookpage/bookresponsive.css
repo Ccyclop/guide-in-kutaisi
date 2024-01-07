@@ -1,0 +1,29 @@
+@media screen and (max-width:1024px) {
+    .logo {
+        margin-left: 20px;
+        height: 90px;
+        width: 90px;
+    }
+
+    .navbar {
+        padding-top: 0;
+    }
+
+    .copyright {
+        font-size: 10px;
+    }
+
+    .bck-heading-text {
+        display: none;
+    }
+
+    .carousel {
+        height: 300px;
+        width: 80%;
+    }
+
+    .carousel img {
+        object-position: center;
+        object-fit: cover;
+    }
+}
