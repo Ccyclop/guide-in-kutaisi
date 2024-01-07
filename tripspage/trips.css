@@ -3,7 +3,9 @@ header {
     
 }
 
-
+.nav-link {
+    color: black!important;
+}
 
 .container-fluid {
     background-color: rgba(83, 83, 83, 0.1);
