@@ -18,23 +18,22 @@ const db = getFirestore()
 const colRef = collection(db, 'Trips') 
 
 let trips = []
-var cards, cardBtn;
+var cardBtn;
 getDocs(colRef)
     .then((snapshot) => {
         snapshot.docs.forEach(doc => {
             trips.push({ ...doc.data(), id: doc.id })
         })
-        trips.splice(0,3).forEach(trip => {
+        let firstThree = [...trips]
+        firstThree.splice(0,3).forEach(trip => {
             toCard(trip)
         })
-        cards = document.querySelectorAll('.card')
         //to book page
         cardBtn = document.querySelectorAll('.card-btn')
         cardBtn.forEach(btn => {
             btn.addEventListener('click', () => {
                 let tripId = btn.parentElement.parentElement.parentElement.id
-                trips.filter(trip => trip.id == tripId)
-                localStorage['trip'] = JSON.stringify(trips[0])
+                localStorage['trip'] = JSON.stringify(trips.filter(trip => trip.id == tripId)[0])
             })
         })    
     })

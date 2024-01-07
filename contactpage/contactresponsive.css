@@ -1,6 +1,8 @@
 @media screen and (max-width: 1024px) {
     .logo {
         margin-left: 20px;
+        height: 90px;
+        width: 90px;
     }
 
     .navbar {

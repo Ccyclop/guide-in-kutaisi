@@ -26,7 +26,23 @@
     }
     
     .card {
-        height: fit-content!important;
+        height: 300px!important;
+        width: 40%!important;
+    }
+
+    .card-body {
+        height: 30%;
+        font-size: 12px;
+        padding: 5px!important;
+    }
+
+    .card-img-top {
+        height: 40%;
+    }
+
+    .card-title {
+        font-size: 12px!important;
+        margin-bottom: 0!important;
     }
 
     .navbar {
@@ -35,5 +51,28 @@
     
     .logo {
         margin-left: 20px;
+        height: 90px;
+        width: 90px;
+    }
+
+    .card-body hr {
+        margin: 8px;
+    }
+
+    .card-text {
+        justify-content: center!important;
+        gap: 2px!important;
+    }
+
+    .card-f {
+        font-size: 12px!important;
+    }
+
+    .card-btn {
+        transform: scale(0.7);
+    }
+
+    .card-f span {
+        font-size: 12px;
     }
 }

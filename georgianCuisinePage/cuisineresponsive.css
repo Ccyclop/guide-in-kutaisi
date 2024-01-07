@@ -31,5 +31,29 @@
 
     .logo{
         margin-left: 20px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .card {
+        width: 40%!important;
+        height: 200px!important;
+    }
+
+    .card-body {
+        height: 40%!important;
+        padding: 5px!important;
+    }
+
+    .card-body h5, p, span {
+        font-size: 10px!important;
+    }
+
+    .card-body hr {
+        margin: 2px;
+    }
+
+    .card-f {
+        height: fit-content;
     }
 }
