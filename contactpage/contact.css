@@ -8,6 +8,10 @@ main {
     gap: 30px;
 }
 
+.nav-link {
+    color: black!important;
+}
+
 header {
     
     position: static;
@@ -171,6 +175,7 @@ textarea::placeholder{
 }
 
 .image {
+    align-self: flex-start;
     width: 200px;
     height: 200px;
 }

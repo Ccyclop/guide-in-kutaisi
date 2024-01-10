@@ -9,6 +9,11 @@
         padding-top: 0;
     }
 
+    .image {
+        width: 150px;
+        height: 150px;
+    }
+
     .contact-main-box {
         flex-direction: column;
         height: fit-content;

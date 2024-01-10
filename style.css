@@ -514,12 +514,12 @@ footer hr {
 }
 
 .fb {
-    bottom: 200px;
+    bottom: 48px;
     left: -15px;
 }
 
 .instagram {
-    bottom: 152px;
+    bottom: 0px;
     left: -15px;
 }
 
@@ -610,6 +610,6 @@ footer a:hover {
 .partner-logo img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
