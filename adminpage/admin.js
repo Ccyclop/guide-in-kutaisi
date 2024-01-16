@@ -101,6 +101,10 @@ let tipUpdateInps = obj => {
     <input type="text" name="" id="tripUpdateName" value="${obj.name}">
     </div>
     <div class="d-flex flex-column">
+    <label for="tripUpdateDescription">Description</label>
+    <input type="text" name="" id="tripUpdateDescription" value="${obj.description}">
+    </div>
+    <div class="d-flex flex-column">
     <label for="tripUpdateLocation">Location</label>
     <input type="text" name="" id="tripUpdateLocation" value="${obj.location}">
     </div>
@@ -198,6 +202,7 @@ getDocs(tripsColRef)
                         max_people: [...inputs].filter(inp => inp.id == 'tripUpdateMaxPeople')[0].value,
                         sale: [...inputs].filter(inp => inp.id == 'updateSale')[0].value,
                         price: [...inputs].filter(inp => inp.id == 'updatePrice')[0].value,
+                        description: [...inputs].filter(inp => inp.id == 'tripUpdateDescription')[0].value
                     }
                     updateDoc(docRef, document)
                         .then(() => alert('updated'))
@@ -358,14 +363,15 @@ let tripAddInps = `<input type="text" name="" placeholder="saxeli" id="tripName"
     <option value=''>Group</option>
 </select>
 <div class="add-image-area">
-  <input type="text" placeholder="damatebiti foto linki" class="addImage">
-  <input type="text" placeholder="damatebiti foto linki" class="addImage">
-  <button class="add-additional">Add</button>
+  <input type="number" placeholder="ramdeni foto ginda" class="fotoCount">
+  <button id='addInps'> ADD </button>  
+  
 </div>
 <input type="number" name="" placeholder="sale %-shi (tu ar ari 0 chawere)" id="sale">
 <input type="number" name="" placeholder="fasi" id="price">
 <input type="number" name="" placeholder="xalxis max raodenoba" id="maxPeople">
 <input type="number" name="" placeholder="xangrdzlivoba wutebshi" id="duration">
+<input type="text" name="" placeholder="agwera" id="decription">
 <button class="btn btn-primary tripSubmitBtn">Submit</button>`
 
 let cuisineAddInps = `<select name="" id="typeSelect">
@@ -384,13 +390,13 @@ const closeBtn = document.querySelector('.btn-close')
 tripAddBtn.addEventListener('click', () => {
     offcanvas.innerHTML = tripAddInps
     offcanvasAddBtn = document.querySelector('.tripSubmitBtn')
-    const additionalImageAdd = document.querySelector('.add-additional')
+    const addImageCount = document.querySelector('.fotoCount')
+    const additionalImageAdd = document.querySelector('#addInps')
     const area = document.querySelector('.add-image-area')
     additionalImageAdd.addEventListener('click',() => {
-        if(area.children.length != 5) {
-            area.innerHTML += `<input type="text" placeholder="damatebiti foto linki" class="addImage">`
-        } else {
-            console.log('meti agar')
+        area.innerHTML = ''
+        for(var i = 0; i < addImageCount.value; i++){
+            area.innerHTML += '<input type="text" placeholder="damatebiti foto linki" class="addImage">'
         }
     })
     offcanvasAddBtn.addEventListener('click', ()=> {
@@ -407,6 +413,7 @@ tripAddBtn.addEventListener('click', () => {
             location: document.getElementById('tripLocation').value,
             image: document.getElementById('tripImage').value,
             duration: document.getElementById('duration').value,
+            description: document.getElementById('description').value,
             additional_images: additionalImagesValues
         })
         .then(() => {
@@ -414,7 +421,7 @@ tripAddBtn.addEventListener('click', () => {
         })
         .catch(err => {
             console.log(err.message)
-        })
+        }) 
     })
 })
 

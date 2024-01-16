@@ -26,7 +26,7 @@
     }
     
     .card {
-        height: 300px!important;
+        height: 250px!important;
         width: 40%!important;
     }
 
@@ -34,6 +34,24 @@
         height: 30%;
         font-size: 12px;
         padding: 5px!important;
+    }
+
+    .card-text p {
+        font-size: 10px;
+    }
+
+    .price, .no-price {
+        width: 100%;
+        font-size: 12px!important;
+    }
+
+    .card-f {
+        height: fit-content;
+        align-items: flex-start!important;
+    }
+
+    .price-box {
+        width: 50%;
     }
 
     .card-img-top {

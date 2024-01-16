@@ -127,3 +127,23 @@ input[type='email']::placeholder {
     
     transition-duration: 0.4s;
 }
+
+.description {
+    font-family: var(--font-poppins);
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.description h3 {
+    font-size: 32px!important;
+    letter-spacing: 1.5px;
+    color: var(--color-orange);
+    font-family: var(--font-poppins);
+    font-weight: 600;
+}
+
+.description p {
+    font-size: 18px!important;
+    font-weight: 300;
+}

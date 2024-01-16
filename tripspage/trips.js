@@ -71,8 +71,8 @@ const toCard = obj => {
         <div class="card-f d-flex justify-content-between align-items-end col-md-12">
             <a href="../bookpage/book.html" class="btn btn-primary card-btn">Book</a>
             <div class="price-box d-flex flex-column align-items-end gap-1">
-                <span style='display: ${obj.sale != 0 ? 'block;': 'none;'}' class='no-price'>GEL${obj.price}</span>
-                <span class="price">GEL${obj.sale != 0 ? obj.price * ((100 - obj.sale)/100) : obj.price}</span>
+                <span style='display: ${obj.sale != 0 ? 'block;': 'none;'}' class='no-price'>${obj.price}GEL</span>
+                <span class="price">${obj.sale != 0 ? obj.price * ((100 - obj.sale)/100) : obj.price}GEL</span>
             </div>
         </div>
     </div>

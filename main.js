@@ -92,7 +92,7 @@ window.addEventListener('scroll', function () {
     } else {
         responsivenavbar.style.backgroundColor = 'transparent'
         navLinks.forEach(elem => elem.style.color = 'white')
-        img.src = './Images/main_logo_white.png'
+        img.src = './Images/main_logo.png'
     }
 })
 

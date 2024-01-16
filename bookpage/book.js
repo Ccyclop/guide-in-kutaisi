@@ -40,6 +40,7 @@ const durationPlace = document.querySelector('.time')
 const locationPlace = document.querySelector('.location')
 const peoplePlace = document.querySelector('.people')
 const pricePlace = document.querySelector('.price')
+const descPlace = document.getElementById('desc')
 const imgArea = document.querySelector('.img').children[0]
 const carouselArea = document.querySelector('.carousel-inner')
 
@@ -63,7 +64,8 @@ tripName.innerHTML = trip.name
 durationPlace.innerHTML = trip.duration % 60 != 0 && trip.duration > 60 ? Math.trunc(trip.duration / 60 ) + ' Hour(s) ' + trip.duration % 60 + ' Minute(s)': '0 Hour(s) ' + trip.duration + ' Minute(s)'
 locationPlace.innerHTML = trip.location
 peoplePlace.innerHTML = trip.max_people + ' People'
-pricePlace.innerHTML = trip.sale != 0 ? 'GEL ' + trip.price * ((100 - trip.sale)/100) + '.00' : 'GEL ' + trip.price + '.00'
+pricePlace.innerHTML = trip.sale != 0 ?  trip.price * ((100 - trip.sale)/100) + '.00' + ' GEL' : trip.price + '.00' + ' GEL'
+descPlace.innerHTML = trip.description
 imgArea.src = trip.image
 trip.additional_images.forEach((img,ind) => {
     toCarouselImg(img,ind)
@@ -81,7 +83,7 @@ window.addEventListener('scroll', function(){
         links.forEach(elem => elem.style.color = "black")
     } else {
         header.style.backgroundColor = 'transparent'
-        img.src = '../Images/main_logo_white.png'
+        img.src = '../Images/main_logo.png'
         links.forEach(elem => elem.style.color = "white")
     }
 })
