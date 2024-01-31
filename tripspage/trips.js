@@ -160,9 +160,16 @@ locationSelect.addEventListener('change', () => {
     //filter
     var selectedItem = locationSelect.options[locationSelect.selectedIndex].text
     if(selectedItem.split(' ')[0] != 'Please' && selectedItem.split(' ')[0] != 'Select'){
-        var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0].toLowerCase()))
-        cards.forEach(o => o.style.display = 'none')
-        locationFilteredCard.forEach(o => o.style.display = 'flex')
+        if(typeSelect.options[typeSelect.selectedIndex].text != 'Transfers'){
+            var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0].toLowerCase()))
+            cards.forEach(o => o.style.display = 'none')
+            locationFilteredCard.forEach(o => o.style.display = 'flex')
+        } else {
+            var locationFilteredCard = typeFilteredCards.filter(o => o.children[1].children[0].innerText.toLowerCase().includes(selectedItem.split(' ')[0].toLowerCase()))
+            cards.forEach(o => o.style.display = 'none')
+            locationFilteredCard.forEach(o => o.style.display = 'flex')
+        }
+        
     }
 })
 

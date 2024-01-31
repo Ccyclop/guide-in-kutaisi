@@ -371,7 +371,7 @@ let tripAddInps = `<input type="text" name="" placeholder="saxeli" id="tripName"
 <input type="number" name="" placeholder="fasi" id="price">
 <input type="number" name="" placeholder="xalxis max raodenoba" id="maxPeople">
 <input type="number" name="" placeholder="xangrdzlivoba wutebshi" id="duration">
-<input type="text" name="" placeholder="agwera" id="decription">
+<input type="text" name="" placeholder="agwera" id="description">
 <button class="btn btn-primary tripSubmitBtn">Submit</button>`
 
 let cuisineAddInps = `<select name="" id="typeSelect">
