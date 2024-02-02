@@ -1,12 +1,14 @@
 @media screen and (max-width: 1024px) {
     .main-bar {
         flex-direction: column;
+        padding: 5px;
     }
 
     .filter-bar {
         width: 100%;
         padding: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        height: 30vh;
     }
 
     .search-form {
@@ -15,6 +17,7 @@
 
     .cards-bar {
         width: 100%;
+        gap: 10px;
     }
 
     .not-found {
@@ -26,28 +29,24 @@
     }
     
     .card {
-        height: 250px!important;
-        width: 40%!important;
+        width: 45%!important;
     }
 
     .card-body {
-        height: 30%;
-        font-size: 12px;
+        height: fit-content!important;
+        
         padding: 5px!important;
-    }
-
-    .card-text p {
-        font-size: 10px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
     }
 
     .price, .no-price {
         width: 100%;
-        font-size: 12px!important;
     }
 
     .card-f {
         height: fit-content;
-        align-items: flex-start!important;
     }
 
     .price-box {
@@ -56,11 +55,6 @@
 
     .card-img-top {
         height: 40%;
-    }
-
-    .card-title {
-        font-size: 12px!important;
-        margin-bottom: 0!important;
     }
 
     .navbar {
@@ -82,15 +76,8 @@
         gap: 2px!important;
     }
 
-    .card-f {
-        font-size: 12px!important;
-    }
-
     .card-btn {
-        transform: scale(0.7);
+        transform: scale(0.9);
     }
 
-    .card-f span {
-        font-size: 12px;
-    }
 }
