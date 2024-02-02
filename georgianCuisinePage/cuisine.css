@@ -1,0 +1,127 @@
+header {
+    position: static;
+}
+
+.container-fluid {
+    background-color: rgba(83, 83, 83, 0.1);
+}
+
+.nav-link {
+    color: black!important;
+}
+
+.main-bar {
+    min-height: 650px;
+    height: calc(100vh - 305px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px;
+}
+
+.search-form {
+    width: 70%;
+    height: 100%;
+}
+
+.search-form input, .search-form select, .search-form button {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    color: black;
+}
+
+.search-form button {
+    background-color: var(--color-orange);
+    width: 100%;
+    color: var(--color-white)!important;
+    border: 2px solid var(--color-orange);
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+.search-form label {
+    color: var(--color-orange);
+}
+
+.search-form button:hover {
+    color: var(--color-orange)!important;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-orange);
+}
+
+.search-form input:focus, .search-form select:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: var(--color-orange);
+} 
+
+.filter-bar{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 100px;
+}
+
+.cards-bar {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+    height: 100%;
+    gap: 30px;
+}
+
+.cards-bar .card {
+    height: 90%;
+}
+
+.search-form {
+    padding: 50px 30px;
+}
+
+.card {
+    height: fit-content!important;
+    border: none!important;
+}
+
+.card-body {
+    height: fit-content;
+}
+
+.card img {
+    object-fit: contain;
+}
+
+.explain {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.explain p:nth-child(1){
+    color: var(--color-orange);
+    font-family: var(--font-poppins);
+    font-size: 25px;
+    font-weight: 600;
+
+}
+
+.explain p:nth-child(2){
+    color: var(--color-orange);
+    font-family: var(--font-poppins);
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
