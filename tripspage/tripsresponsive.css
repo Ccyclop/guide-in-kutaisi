@@ -36,8 +36,8 @@
         height: fit-content!important;
         
         padding: 5px!important;
-        flex-direction: column;
         display: flex;
+        flex-direction: column;
         justify-content: center;
     }
 

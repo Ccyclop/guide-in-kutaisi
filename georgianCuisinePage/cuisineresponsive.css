@@ -1,12 +1,14 @@
 @media screen and (max-width: 1024px) {
     .main-bar {
         flex-direction: column;
+        padding: 5px;
     }
 
     .filter-bar {
         width: 100%;
         padding: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        height: fit-content
     }
 
     .search-form {
@@ -15,6 +17,7 @@
 
     .cards-bar {
         width: 100%;
+        gap: 10px;
     }
 
     .explain {
@@ -36,17 +39,18 @@
     }
 
     .card {
-        width: 40%!important;
-        height: 200px!important;
+        height: 300px!important;
+        width: 45%!important;
+    }
+
+    .card-img-top img {
+        height: 100%;
+        width: 100%;
     }
 
     .card-body {
-        height: 40%!important;
+        height: fit-content!important;
         padding: 5px!important;
-    }
-
-    .card-body h5, p, span {
-        font-size: 10px!important;
     }
 
     .card-body hr {
