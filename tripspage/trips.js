@@ -31,6 +31,7 @@ getDocs(colRef)
             toCard(trip)
         })
         cards = document.querySelectorAll('.card')
+        fillFromLocalStorage()
         //to book page
         cardBtn = document.querySelectorAll('.card-btn')
         cardBtn.forEach(btn => {
@@ -82,6 +83,45 @@ const toCard = obj => {
 
 }
 
+var typeFilteredCards = []
+
+function fillLocationSelect(){
+    selectedItem = typeSelect.options[typeSelect.selectedIndex].text
+    if(selectedItem == 'Individual Tours'){
+        //options
+        
+        locationSelect.innerHTML = individualOptions
+        //filter
+        typeFilteredCards = [...document.querySelectorAll('.card')].filter((item) => {
+            return item.classList.contains('Individual')
+        })
+        cards.forEach(o => {
+            o.style.display = 'none'
+        })
+        typeFilteredCards.forEach(element => {
+            element.style.display = 'flex'
+        });
+    } else if(selectedItem == 'Transfers'){
+        //options
+        locationSelect.innerHTML = transferOptions
+        //filter
+        typeFilteredCards = [...document.querySelectorAll('.card')].filter(i => i.classList.contains('Transfer'))
+        cards.forEach(o => o.style.display = 'none')
+        typeFilteredCards.forEach(o => o.style.display = 'flex')
+    } else if(selectedItem == 'Select Tour Type...'){
+        //filter
+        locationSelect.innerHTML = defaultOpts
+        cards.forEach(o => o.style.display = 'flex')
+    } else {
+        //options
+        locationSelect.innerHTML = groupTransfer
+        //filter
+        typeFilteredCards = [...document.querySelectorAll('.card')].filter(i => i.classList.contains('Group'))
+        cards.forEach(o => o.style.display = 'none')
+        typeFilteredCards.forEach(o => o.style.display = 'flex')
+    }
+}
+
 // options
 const typeSelect = document.getElementById('tourType')
 const locationSelect = document.getElementById('tourLocation')
@@ -114,68 +154,71 @@ let groupTransfer = `
     <option value="">5 Days In Georgia</option>
     <option value="">10 Days In Georgia</option>
 `
+let defaultOpts = `
+    <option value="">Select Tour Location...</option>
+    <option value="">Please Select Tour Type First</option>
+`
 
 //filter
 const tripName = document.getElementById('tourName')
-var typeFilteredCards = []
+
+
+// fill from localstorage
+var selectedItem; 
+var locationSelectedItem;
+
+function fillFromLocalStorage(){
+    if(localStorage['filter']) {
+        let obj = JSON.parse(localStorage['filter'])
+        if(obj.type.length > 0) {
+            [...typeSelect.options].filter(o => o.text == obj.type)[0].selected = 'selected'
+            fillLocationSelect()
+        }
+        if(obj.location.length > 0){
+            [...locationSelect.options].filter(o => o.text == obj.location)[0].selected = 'selected'
+            filterByLocation()
+        }
+        if(obj.name.length > 0){
+            tripName.value = obj.name
+            let filteredCards = [...document.querySelectorAll('.card')].filter(o => o.children[1].children[0].innerText.toLowerCase().includes(obj.name.toLowerCase()))
+            cards.forEach(o => o.style.display = 'none')
+            filteredCards.forEach(o => o.style.display = 'flex')
+        }
+    }
+}
+
 
 typeSelect.addEventListener('change', () => {
-    var selectedItem = typeSelect.options[typeSelect.selectedIndex].text
-    if(selectedItem == 'Individual Tours'){
-        //options
-        
-        locationSelect.innerHTML = individualOptions
-        //filter
-        typeFilteredCards = [...cards].filter((item) => {
-            return item.classList.contains('Individual')
-        })
-        cards.forEach(o => {
-            o.style.display = 'none'
-        })
-        typeFilteredCards.forEach(element => {
-            element.style.display = 'flex'
-        });
-    } else if(selectedItem == 'Transfers'){
-        //options
-        locationSelect.innerHTML = transferOptions
-        //filter
-        typeFilteredCards = [...cards].filter(i => i.classList.contains('Transfer'))
-        cards.forEach(o => o.style.display = 'none')
-        typeFilteredCards.forEach(o => o.style.display = 'flex')
-    } else if(selectedItem == 'Select Tour Type...'){
-        //filter
-        cards.forEach(o => o.style.display = 'flex')
-    } else {
-        //options
-        locationSelect.innerHTML = groupTransfer
-        //filter
-        typeFilteredCards = [...cards].filter(i => i.classList.contains('Group'))
-        cards.forEach(o => o.style.display = 'none')
-        typeFilteredCards.forEach(o => o.style.display = 'flex')
-    }
-    
+    fillLocationSelect()
 })
 
-locationSelect.addEventListener('change', () => {
-    //filter
-    var selectedItem = locationSelect.options[locationSelect.selectedIndex].text
-    if(selectedItem.split(' ')[0] != 'Please' && selectedItem.split(' ')[0] != 'Select'){
+function filterByLocation(){
+    locationSelectedItem = locationSelect.options[locationSelect.selectedIndex].text
+    if(locationSelectedItem.split(' ')[0] != 'Please' && locationSelectedItem.split(' ')[0] != 'Select'){
         if(typeSelect.options[typeSelect.selectedIndex].text != 'Transfers'){
-            var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(selectedItem.split(' ')[0].toLowerCase()))
+            var locationFilteredCard = typeFilteredCards.filter(o => o.classList.contains(locationSelectedItem.split(' ')[0].toLowerCase()))
             cards.forEach(o => o.style.display = 'none')
             locationFilteredCard.forEach(o => o.style.display = 'flex')
         } else {
-            var locationFilteredCard = typeFilteredCards.filter(o => o.children[1].children[0].innerText.toLowerCase().includes(selectedItem.split(' ')[0].toLowerCase()))
+            var locationFilteredCard = typeFilteredCards.filter(o => o.children[1].children[0].innerText.toLowerCase().includes(locationSelectedItem.split(' ')[0].toLowerCase()))
             cards.forEach(o => o.style.display = 'none')
             locationFilteredCard.forEach(o => o.style.display = 'flex')
         }
         
     }
+}
+
+locationSelect.addEventListener('change', () => {
+    //filter
+    filterByLocation()
 })
+
+
 
 tripName.addEventListener('keyup', function(){
     let value = tripName.value
-    let filteredCards = [...cards].filter(o => o.children[1].children[0].innerText.toLowerCase().includes(value))
+    let showingCards = [...document.querySelectorAll('.card')].filter(o => o.style.display != 'none')
+    let filteredCards = showingCards.filter(o => o.children[1].children[0].innerText.toLowerCase().includes(value.toLowerCase()))
     cards.forEach(o => o.style.display = 'none')
     filteredCards.forEach(o => o.style.display = 'flex')
 })

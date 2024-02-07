@@ -142,3 +142,14 @@ typeSelect.addEventListener('change', () => {
         locationSelect.innerHTML = groupTransfer
     }
 })
+
+const nameSearch = document.querySelector('#tourName')
+const filterBtn = document.querySelector('.filterBtn')
+
+filterBtn.addEventListener('click', () => {
+    localStorage['filter'] = JSON.stringify({
+        'name': nameSearch.value,
+        'type': typeSelect.options[typeSelect.selectedIndex].text,
+        'location': locationSelect.options[locationSelect.selectedIndex].text
+    })
+})

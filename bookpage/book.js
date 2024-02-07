@@ -52,7 +52,6 @@ let toCarouselImg = (src, index) => {
 
 var templateParams = {
     to_email: 'guideinkutaisiofficial@gmail.com',
-    from_email: 'guideinkutaisiofficial@gmail.com',
     trip_name: trip.name,
     trip_location: trip.location,
     trip_price: trip.sale != 0 ? 'GEL ' + trip.price * ((100 - trip.sale)/100) + '.00' : 'GEL ' + trip.price + '.00',
